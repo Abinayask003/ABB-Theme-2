@@ -1,15 +1,14 @@
-# NL2PLC Prototype
+# NL2PLC Prototype (AI → IEC 61131-3 ST generator)
 
-This project converts natural-language PLC instructions into IEC 61131-3 Structured Text (.st) code using **Ollama (local LLM)**.
+## Overview
+This web app accepts natural-language PLC instructions, uses an LLM (Ollama or OpenAI) 
+to generate IEC 61131-3 Structured Text (.st) files and saves them to `st_files/`.
 
-## Features
-- Enter single or batch instructions
-- Generate IEC 61131-3 ST code
-- Save `.st` files
-- Local simulation
+## 🚀 Live Demo
+Try it here: [https://abb-theme-2.onrender.com](https://abb-theme-2.onrender.com)
 
-## Setup
+## Setup (local)
 1. Clone repo:
    ```bash
-   git clone https://github.com/<your-username>/nl2plc_prototype.git
+   git clone <your-repo-url>
    cd nl2plc_prototype
