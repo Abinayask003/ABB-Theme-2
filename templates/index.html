@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>NL → IEC 61131-3 ST Converter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>NL → IEC 61131-3 ST Converter (AI)</h1>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash">
+          {% for m in messages %} <div>{{ m }}</div> {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" enctype="multipart/form-data">
+      <div class="modes">
+        <label><input type="radio" name="mode" value="single" checked> Single Instruction</label>
+        <label><input type="radio" name="mode" value="batch"> Batch File</label>
+      </div>
+
+      <div id="single_input" class="input-block">
+        <textarea name="nl_instruction" placeholder="e.g. Start PumpCmd when Level < 30 for 5 s and Stop when Level > 80"></textarea>
+      </div>
+
+      <div id="batch_input" class="input-block" style="display:none;">
+        <input type="file" name="batch_file" accept=".txt" />
+      </div>
+
+      <button type="submit" class="btn">Generate ST</button>
+    </form>
+
+    <h2>Generated IEC ST Code</h2>
+    <pre class="code-block">{{ st_code }}</pre>
+
+    {% if st_filepath %}
+      <a class="download" href="{{ url_for('download', filename=st_filepath.split('/')[-1]) }}">Download .st file</a>
+    {% endif %}
+  </div>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

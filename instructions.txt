@@ -1,0 +1,10 @@
+Start Pump when Level < 30
+Stop Pump when Level > 80
+Latch Alarm if Press > 2.0 until Reset
+Reset Alarm when Reset signal is ON
+Start Cooling Fan if Temperature > 75
+Stop Cooling Fan if Temperature < 70
+Turn On Light when Motion detected
+Turn Off Light when No Motion detected
+Activate Buzzer if Tank overflow
+Deactivate Buzzer if Level < 90
