@@ -24,12 +24,13 @@
         <label><input type="radio" name="mode" value="batch"> Batch File</label>
       </div>
 
-      <!-- Single Instruction with mic button -->
+      <!-- Single Input with Mic -->
       <div id="single_input" class="input-block input-with-mic">
-        <textarea id="nl_instruction" name="nl_instruction" placeholder="e.g. Start PumpCmd when Level < 30 for 5 s and Stop when Level > 80"></textarea>
+        <textarea name="nl_instruction" placeholder="e.g. Start PumpCmd when Level < 30 for 5 s and Stop when Level > 80"></textarea>
         <button type="button" id="voiceBtn" class="mic-btn">🎤</button>
       </div>
 
+      <!-- Batch Input -->
       <div id="batch_input" class="input-block" style="display:none;">
         <input type="file" name="batch_file" accept=".txt" />
       </div>
@@ -44,6 +45,7 @@
       <a class="download" href="{{ url_for('download', filename=st_filepath.split('/')[-1]) }}">Download .st file</a>
     {% endif %}
   </div>
+
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

@@ -1,11 +1,11 @@
-// Toggle Single/Batch input
+// Mode switch (single/batch)
 const singleRadio = document.querySelector('input[value="single"]');
 const batchRadio = document.querySelector('input[value="batch"]');
 const singleInput = document.getElementById('single_input');
 const batchInput = document.getElementById('batch_input');
 
 singleRadio.addEventListener('change', () => {
-  singleInput.style.display = 'flex';
+  singleInput.style.display = 'block';
   batchInput.style.display = 'none';
 });
 batchRadio.addEventListener('change', () => {
@@ -13,50 +13,65 @@ batchRadio.addEventListener('change', () => {
   batchInput.style.display = 'block';
 });
 
-// ---------- Voice Dictation ----------
-const voiceBtn = document.getElementById("voiceBtn");
-const textarea = document.getElementById("nl_instruction");
+// 🎤 Voice recognition
+const textarea = document.querySelector('#single_input textarea');
 
-// Check browser support
+// Create mic button dynamically inside textarea container
+const micBtn = document.createElement('button');
+micBtn.id = 'voiceBtn';
+micBtn.classList.add('mic-btn');
+micBtn.innerHTML = '🎤';
+document.querySelector('#single_input').classList.add('input-with-mic');
+document.querySelector('#single_input').appendChild(micBtn);
+
+// Initialize SpeechRecognition
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 if (!SpeechRecognition) {
-  voiceBtn.disabled = true;
-  voiceBtn.title = "Speech recognition not supported in this browser";
+  console.warn('Browser does not support Speech Recognition API.');
+  micBtn.disabled = true;
 } else {
   const recognition = new SpeechRecognition();
-  recognition.continuous = true; // keep recording continuously
+  recognition.continuous = true; // continuous dictation
   recognition.interimResults = true;
   recognition.lang = 'en-US';
 
-  let isListening = false;
-
-  voiceBtn.addEventListener("click", () => {
-    if (!isListening) {
-      recognition.start();
-    } else {
-      recognition.stop();
-    }
-  });
+  let finalTranscript = '';
 
   recognition.onstart = () => {
-    isListening = true;
-    voiceBtn.classList.add("listening");
+    micBtn.classList.add('listening');
   };
 
   recognition.onend = () => {
-    isListening = false;
-    voiceBtn.classList.remove("listening");
+    micBtn.classList.remove('listening');
+    // Auto-restart if user clicked stop by mistake
+    if (micBtn.dataset.listening === 'true') {
+      recognition.start();
+    }
   };
 
   recognition.onresult = (event) => {
-    let transcript = "";
-    for (let i = event.resultIndex; i < event.results.length; i++) {
-      transcript += event.results[i][0].transcript;
+    let interimTranscript = '';
+    for (let i = event.resultIndex; i < event.results.length; ++i) {
+      const transcript = event.results[i][0].transcript;
+      if (event.results[i].isFinal) {
+        finalTranscript += transcript + ' ';
+      } else {
+        interimTranscript += transcript;
+      }
     }
-    textarea.value = transcript;
+    textarea.value = finalTranscript + interimTranscript;
   };
 
-  recognition.onerror = (event) => {
-    console.error("Speech recognition error:", event.error);
-  };
+  // Mic button click
+  micBtn.addEventListener('click', () => {
+    if (micBtn.dataset.listening === 'true') {
+      // stop
+      micBtn.dataset.listening = 'false';
+      recognition.stop();
+    } else {
+      // start
+      micBtn.dataset.listening = 'true';
+      recognition.start();
+    }
+  });
 }
