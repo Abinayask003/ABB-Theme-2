@@ -24,9 +24,10 @@
         <label><input type="radio" name="mode" value="batch"> Batch File</label>
       </div>
 
-      <div id="single_input" class="input-block">
-        <textarea name="nl_instruction" placeholder="e.g. Start PumpCmd when Level < 30 for 5 s and Stop when Level > 80"></textarea>
-        <button type="button" id="voiceBtn">🎤</button>
+      <!-- Single Instruction with mic button -->
+      <div id="single_input" class="input-block input-with-mic">
+        <textarea id="nl_instruction" name="nl_instruction" placeholder="e.g. Start PumpCmd when Level < 30 for 5 s and Stop when Level > 80"></textarea>
+        <button type="button" id="voiceBtn" class="mic-btn">🎤</button>
       </div>
 
       <div id="batch_input" class="input-block" style="display:none;">
