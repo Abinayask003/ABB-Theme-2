@@ -32,6 +32,15 @@
         <input type="file" name="batch_file" accept=".txt" />
       </div>
 
+      <!-- AI Backend Selection -->
+      <div class="backend-select">
+        <label>Select AI Backend:</label>
+        <select name="llm_backend">
+            <option value="ollama" {% if llm_backend == 'ollama' %}selected{% endif %}>Ollama</option>
+            <option value="openai" {% if llm_backend == 'openai' %}selected{% endif %}>OpenAI</option>
+        </select>
+      </div>
+
       <button type="submit" class="btn">Generate ST</button>
     </form>
 

@@ -1,6 +1,7 @@
 __pycache__/
 *.pyc
-venv/
-nl2plc/
-st_files/
 .env
+.env.*
+st_files/
+.vscode/
+*.log
