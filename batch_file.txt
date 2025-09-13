@@ -1,0 +1,7 @@
+Start Pump1 when LevelTank1 < 30 AND PressureTank1 < 50
+Stop Pump1 when LevelTank1 > 80 OR PressureTank1 > 100
+Trigger Alarm if LevelTank1 < 10 OR PressureTank1 > 120
+Start CoolingFan when TempMotor > 75 for 10 seconds
+Stop CoolingFan when TempMotor < 60
+Toggle Valve1 every 5 seconds if FlowRate > 100
+Reset FaultIndicator when EStop = FALSE AND Fault = TRUE
