@@ -1,0 +1,7 @@
+Start PumpCmd when Level < 30
+Stop PumpCmd when Level > 80
+Trigger Alarm when Press > 2.5
+Reset Alarm when Reset = TRUE
+Turn on Fan when Temp > 60
+Open Valve when Pressure < 1.2
+Close Valve when Pressure > 5.0

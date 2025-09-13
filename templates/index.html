@@ -30,6 +30,7 @@
 
       <div id="batch_input" class="input-block" style="display:none;">
         <input type="file" name="batch_file" accept=".txt" />
+        <small>Upload a .txt file with one instruction per line.</small>
       </div>
 
       <!-- AI Backend Selection -->
@@ -51,6 +52,30 @@
       <a class="download" href="{{ url_for('download', filename=st_filepath.split('/')[-1]) }}">Download .st file</a>
     {% endif %}
   </div>
+
+  <!-- JavaScript to toggle between Single and Batch inputs -->
+  <script>
+    const singleRadio = document.querySelector('input[value="single"]');
+    const batchRadio = document.querySelector('input[value="batch"]');
+    const singleInput = document.getElementById('single_input');
+    const batchInput = document.getElementById('batch_input');
+
+    function toggleInputs() {
+      if (singleRadio.checked) {
+        singleInput.style.display = 'block';
+        batchInput.style.display = 'none';
+      } else {
+        singleInput.style.display = 'none';
+        batchInput.style.display = 'block';
+      }
+    }
+
+    singleRadio.addEventListener('change', toggleInputs);
+    batchRadio.addEventListener('change', toggleInputs);
+
+    // Run once on page load
+    toggleInputs();
+  </script>
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
